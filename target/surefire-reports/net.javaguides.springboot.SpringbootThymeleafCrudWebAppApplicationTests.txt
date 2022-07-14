@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: net.javaguides.springboot.SpringbootThymeleafCrudWebAppApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.135 s - in net.javaguides.springboot.SpringbootThymeleafCrudWebAppApplicationTests
