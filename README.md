@@ -1,4 +1,14 @@
-# springboot-thymeleaf-crud-pagination-sorting-webapp
+# Spring Boot Web App Deployment
+
+## Build on AWS EC2
+
+[How to Build](notes/Build Instructions.pdf)
+
+## Deploy on Docker
+
+[TODO]
+
+# References
 
 Spring Boot CRUD Web application with Pagination and Sorting features using Spring Boot, ThymeLeaf, Spring Data JPA, Hibernate, MySQL database
 
