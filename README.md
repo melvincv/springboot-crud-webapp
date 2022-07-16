@@ -2,7 +2,7 @@
 
 ## Build on AWS EC2
 
-[How to Build](notes/Build Instructions.pdf)
+[How to Build](https://github.com/melvincv/springboot-crud-webapp/blob/master/notes/Build%20Instructions.pdf)
 
 ## Deploy on Docker
 
