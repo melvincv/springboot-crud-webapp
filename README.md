@@ -6,7 +6,19 @@
 
 ## Deploy on Docker
 
-[TODO]
+1. Create a file called .env from the given copy and fill in the variable values.
+2. Check the Dockerfile and compose.yml file.
+3. Run this to build the image and bring up the services (containers):
+
+```
+    docker compose up -d --build
+```
+
+4. Once you are done, run this to bring it down:
+
+```
+    docker compose down
+```
 
 # References
 
