@@ -22,7 +22,7 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'keyfile', usernameVariable: 'USER')]) {
                     sh '''#!/bin/bash
-                    ssh -i ${keyfile} $USER@${HOST} 
+                    ssh -t -i ${keyfile} $USER@${HOST} 
                     sudo su
                     curl -fsSL https://get.docker.com -o get-docker.sh
                     sh get-docker.sh
