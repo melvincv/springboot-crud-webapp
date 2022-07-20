@@ -17,8 +17,10 @@ pipeline {
                     }
                 }
             }
-            withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'keyfile', usernameVariable: 'USER')]) {
-                stage('deploy to ec2') {
+            }
+        stage('Deploy to EC2') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'keyfile', usernameVariable: 'USER')]) {
                     sh '''#!/bin/bash
                     ssh -i ${keyfile} $USER@${HOST} 
                     sudo su
@@ -26,6 +28,7 @@ pipeline {
                     sh get-docker.sh
                     docker pull melvincv/springbootcrudapp
                     docker run --name springbootcrudapp -d -p 80:8080 melvincv/springbootcrudapp'''
+
                 }
             }
         }
