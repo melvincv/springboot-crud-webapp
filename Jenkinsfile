@@ -23,12 +23,20 @@ pipeline {
         }
         stage('Deploy to EC2') {
             steps {
-                script {
-                    withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'keyfile', usernameVariable: 'USER')]) {
-                        sh '''ssh -t -i ${keyfile} $USER@${EC2_HOST} \'curl -fsSL https://get.docker.com -o get-docker.sh\'
-                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'sh get-docker.sh\'
-                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'docker pull melvincv/springbootcrudapp\'
-                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'docker run --name springbootcrudapp -d -p 80:8080 melvincv/springbootcrudapp\''''
+                script { // https://plugins.jenkins.io/ssh-steps/
+                    def remote = [:]
+                    remote.name = "ec2stg"
+                    remote.host = "$EC2_HOST"
+                    remote.allowAnyHosts = true
+
+                    withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
+                        remote.user = USER
+                        remote.identityFile = KEYFILE
+                        stage("SSH Steps Rocks!") {
+                            writeFile file: 'install-docker.sh', text: 'ls'
+                            sshScript remote: remote, script: 'install-docker.sh'
+                            sshCommand remote: remote, command: "docker pull melvincv/springbootcrudapp:${IMAGE_TAG}"
+                        }
                     }
                 }
             }
