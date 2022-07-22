@@ -26,12 +26,12 @@ pipeline {
                 script { // https://plugins.jenkins.io/ssh-steps/
                     def remote = [:]
                     remote.name = "ec2stg"
-                    remote.host = "$EC2_HOST"
+                    remote.host = "${EC2_HOST}"
                     remote.allowAnyHosts = true
 
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
-                        remote.user = USER
-                        remote.identityFile = KEYFILE
+                        remote.user = "$USER"
+                        remote.identityFile = "$KEYFILE"
                         stage("SSH Steps Rocks!") {
                             sshPut remote: remote, from: 'install-docker.sh', into: '.'
                             sshCommand remote: remote, sudo: true, command: "chmod +x install-docker.sh"
