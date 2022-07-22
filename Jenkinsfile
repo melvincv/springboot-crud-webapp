@@ -33,7 +33,8 @@ pipeline {
                         remote.user = USER
                         remote.identityFile = KEYFILE
                         stage("SSH Steps Rocks!") {
-                            writeFile file: 'install-docker.sh', text: 'ls'
+                            sshPut remote: remote, from: 'install-docker.sh', into: '.'
+                            sshCommand remote: remote, sudo: true, command: "chmod +x install-docker.sh"
                             sshScript remote: remote, script: 'install-docker.sh'
                             sshCommand remote: remote, command: "docker pull melvincv/springbootcrudapp:${IMAGE_TAG}"
                             sshCommand remote: remote, command: "docker run --rm --name springbootapp -d -p 80:8080 melvincv/springbootcrudapp:${IMAGE_TAG}"
