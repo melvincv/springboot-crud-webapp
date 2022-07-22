@@ -25,10 +25,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'keyfile', usernameVariable: 'USER')]) {
-                        ssh -t -i ${keyfile} $USER@${EC2_HOST} 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                        ssh -t -i ${keyfile} $USER@${EC2_HOST} 'sh get-docker.sh'
-                        ssh -t -i ${keyfile} $USER@${EC2_HOST} 'docker pull melvincv/springbootcrudapp'
-                        ssh -t -i ${keyfile} $USER@${EC2_HOST} 'docker run --name springbootcrudapp -d -p 80:8080 melvincv/springbootcrudapp'
+                        sh '''ssh -t -i ${keyfile} $USER@${EC2_HOST} \'curl -fsSL https://get.docker.com -o get-docker.sh\'
+                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'sh get-docker.sh\'
+                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'docker pull melvincv/springbootcrudapp\'
+                            ssh -t -i ${keyfile} $USER@${EC2_HOST} \'docker run --name springbootcrudapp -d -p 80:8080 melvincv/springbootcrudapp\''''
                     }
                 }
             }
