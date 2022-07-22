@@ -2,7 +2,7 @@ pipeline {
     agent any
     parameters {
         string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Enter a tag for the Docker Image')
-        string(name: 'EC2_HOST', defaultValue: 'null', description: 'Enter the IP of the instance to deploy on')
+        string(name: 'EC2_HOST', defaultValue: '18.142.227.13', description: 'Enter the IP of the instance to deploy on')
     }
     stages {
         stage('Build Image') {
@@ -25,8 +25,8 @@ pipeline {
             steps {
                 script { // https://plugins.jenkins.io/ssh-steps/
                     def remote = [:]
-                    remote.name = "node-1"
-                    remote.host = "10.000.000.153"
+                    remote.name = "ec2-instance"
+                    remote.host = "$EC2_HOST"
                     remote.allowAnyHosts = true
 
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
