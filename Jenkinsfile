@@ -23,9 +23,11 @@ pipeline {
         }
         stage ('Docker pull: EC2 SSH') {
             steps{
-                withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
-                    sh "ssh -o StrictHostKeyChecking=no -i "$KEYFILE" $USER@${PROD_IP} \"echo Logged in\""
-                    sh "ssh -o StrictHostKeyChecking=no -i "$KEYFILE" $USER@$PROD_IP \"docker pull melvincv/springbootcrudapp\"" 
+                script {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
+                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"echo Logged in\"'
+                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker pull melvincv/springbootcrudapp\"'
+                    }
                 }
             }
         }
