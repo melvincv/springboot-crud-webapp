@@ -21,13 +21,14 @@ pipeline {
                 }
             }
         }
-        stage ('Docker pull: EC2 SSH') {
+        stage ('Deploy to EC2') {
             steps{
                 script {
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
                     sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"echo Logged in\"'
                     sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker pull melvincv/springbootcrudapp\"'
-                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker run --rm -d -p 80:8080 melvincv/springbootcrudapp\"'
+                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker container prune\"'
+                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker run -d -p 80:8080 melvincv/springbootcrudapp\"'
                     }
                 }
             }
