@@ -2,21 +2,16 @@ pipeline {
     agent any
     parameters {
         // string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Enter a tag for the Docker Image')
-        string(name: 'PROD_IP', defaultValue: '18.142.227.13', description: 'Enter the IP of the instance to deploy on')
+        string(name: 'PROD_IP', defaultValue: '192.168.0.10', description: 'Enter the IP of the instance to deploy on')
+        boolean()
     }
     stages {
-        stage('Build Image') {
+        stage('Build and Push Image') {
             steps {
                 script {
-                    app=docker.build("melvincv/springbootcrudapp")
-                }
-            }
-        }
-        stage('Deploy Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com','docker_hub_login'){
-                        app.push("latest")
+                    docker.withRegistry('', 'docker_hub_login') {
+                        def app=docker.build("melvincv/springbootcrudapp")
+                        app.push()
                     }
                 }
             }
@@ -27,8 +22,6 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
                     sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"echo Logged in\"'
                     sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker pull melvincv/springbootcrudapp\"'
-                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker container prune\"'
-                    sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker run -d -p 80:8080 melvincv/springbootcrudapp\"'
                     }
                 }
             }
