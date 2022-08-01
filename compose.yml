@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: springbootcrudapp:${TAG}
+    image: melvincv/springbootcrudapp
     build: .
     restart: unless-stopped
     ports:
