@@ -22,7 +22,11 @@ pipeline {
                 script {
                         withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"echo Logged in\"'
-                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"docker pull melvincv/springbootcrudapp\"'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} deploy.sh $USER@${PROD_IP}:.'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} compose.yml $USER@${PROD_IP}:.'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} Dockerfile $USER@${PROD_IP}:.'
+                        sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} .env $USER@${PROD_IP}:.'
+                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"sudo bash ./deploy.sh\"'
                     }
                 }
             }

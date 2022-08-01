@@ -25,6 +25,7 @@ if [ "$DO_PRUNE" -eq 1 ]; then
 fi
 
 # Run the compose stack
+docker compose pull
 docker compose up -d
 
 # Clear env file after use

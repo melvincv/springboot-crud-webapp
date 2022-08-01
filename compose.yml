@@ -1,7 +1,6 @@
 services:
   frontend:
     image: melvincv/springbootcrudapp
-    build: .
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -28,7 +27,7 @@ services:
     image: adminer
     restart: unless-stopped
     ports:
-      - 8100:8080
+      - 10000:8080
     networks:
       - int
       - ext
