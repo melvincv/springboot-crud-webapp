@@ -32,8 +32,7 @@ pipeline {
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"if [ ! -e "app" ]; then mkdir app >&2; else echo Folder exists; fi\"'
                         sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} deploy.7z $USER@${PROD_IP}:~/app'
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"cd app; 7z x -p${ZIP_PASS} ~/app/deploy.7z\"'
-                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"pwd; ls -l\"'
-                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"sudo bash ./deploy.sh\"'
+                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"cd app; sudo bash ./deploy.sh\"'
                     }
                 }
             }
