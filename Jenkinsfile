@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         // string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Enter a tag for the Docker Image')
+        choice(name: 'DOCKER_BUILD', choices: ['yes', 'no'], description: 'Build and Push to Docker Hub?')
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Deploy to Production?')
         string(name: 'PROD_IP', defaultValue: '192.168.0.10', description: 'Enter the IP of the instance to deploy on')
     }
@@ -12,6 +13,7 @@ pipeline {
             }
         }
         stage('Docker Build and Push') {
+            when { environment name: 'DOCKER_BUILD', value: 'yes' }
             steps {
                 script {
                     docker.withRegistry('', 'docker_hub_login') {
