@@ -6,6 +6,11 @@ pipeline {
         booleanParam(name: 'DEPLOY_PROD', defaultValue: false, description: 'Deploy to Production?')
     }
     stages {
+        stage('build') {
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
         stage('Build and Push Image') {
             steps {
                 script {
@@ -30,6 +35,18 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        unstable {
+            echo 'Pipeline is unstable.'
+        }
+        success {
+            echo 'Pipeline Succeeded!'
+            archiveArtifacts artifacts: '**/target/*.jar', followSymlinks: false
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
