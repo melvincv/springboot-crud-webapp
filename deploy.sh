@@ -19,9 +19,6 @@ if [ ! -e "/usr/bin/dockerd" ]; then
     sh get-docker.sh
 fi
 
-# Pull the latest image
-docker pull melvincv/springbootcrudapp
-
 # Remove stopped containers
 if [ "$DO_PRUNE" -eq 1 ]; then
     docker container prune
