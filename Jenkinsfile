@@ -14,7 +14,9 @@ pipeline {
         }
         stage('test') {
             steps {
-                sh 'mvn test'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh 'mvn test'
+                }
             }
         }
         stage('Docker Build and Push') {
