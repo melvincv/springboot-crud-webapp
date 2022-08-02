@@ -9,6 +9,9 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# APT update
+apt update
+
 # Check for Docker
 if [ ! -e "/usr/bin/dockerd" ]; then
     echo "Docker is not present. Installing..."

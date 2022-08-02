@@ -3,7 +3,7 @@ services:
     image: melvincv/springbootcrudapp
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 8100:8080
     networks:
       - int
       - ext
