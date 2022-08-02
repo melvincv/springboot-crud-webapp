@@ -27,7 +27,7 @@ pipeline {
                 script {
                         withCredentials([sshUserPrivateKey(credentialsId: 'aws-ec2-ubuntu-singapore', keyFileVariable: 'KEYFILE', usernameVariable: 'USER')]) {
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"sudo apt update && sudo apt install -y p7zip-full\"'
-                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"if [ ! -e "app" ]; then mkdir app >&2; else echo 'Folder exists'; fi\"'
+                        sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"if [ ! -e "app" ]; then mkdir app >&2; else echo Folder exists; fi\"'
                         sh 'scp -o StrictHostKeyChecking=no -i ${KEYFILE} deploy.7z $USER@${PROD_IP}:~/app'
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"cd app; 7z x -p${ZIP_PASS} ~/app/deploy.7z\"'
                         sh 'ssh -o StrictHostKeyChecking=no -i ${KEYFILE} $USER@${PROD_IP} \"pwd; ls -l\"'
