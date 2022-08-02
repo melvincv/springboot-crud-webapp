@@ -28,6 +28,7 @@ pipeline {
                 }
             }
         }
+    } 
     post {
         unstable {
             echo 'Pipeline is unstable.'
