@@ -30,5 +30,6 @@ docker compose up -d
 
 # Clear env file after use
 if [ "$CLEAR_ENV_FILE" -eq 1 ]; then
+    sleep 5
     rm -f .env
 fi
