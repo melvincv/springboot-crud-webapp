@@ -12,7 +12,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                catchError(message: 'Test Stage fails for now. No idea why. Pipeline continues...', buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError(message: 'Test Stage fails for now. No idea why. Pipeline continues...') {
                     sh 'mvn test'
                 }
             }
@@ -31,14 +31,14 @@ pipeline {
     } 
     post {
         unstable {
-            echo 'Pipeline is unstable.'
+            echo 'Pipeline is unstable...'
         }
         success {
-            echo 'Pipeline Succeeded!'
+            echo 'Pipeline Succeeded! Archiving artifacts...'
             archiveArtifacts artifacts: '**/target/*.jar', followSymlinks: false
         }
         failure {
-            echo 'Pipeline failed.'
+            echo 'Pipeline failed...'
         }
     }
 }
