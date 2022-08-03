@@ -12,7 +12,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                catchError(message: 'Test Stage fails for now. No idea why. Pipeline continues...', buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'mvn test'
                 }
             }
