@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        // string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Enter a tag for the Docker Image')
+        string(name: 'IMAGE_TAG', defaultValue: 'latest', description: 'Enter a tag for the Docker Image')
         booleanParam(name: 'DOCKER_BUILD', defaultValue: false, description: 'Build and Push to Docker Hub?')
     }
     stages {
@@ -23,7 +23,7 @@ pipeline {
                 script {
                     docker.withRegistry('', 'docker_hub_login') {
                         def app=docker.build("melvincv/springbootcrudapp")
-                        app.push()
+                        app.push("${params.IMAGE_TAG}")
                     }
                 }
             }
