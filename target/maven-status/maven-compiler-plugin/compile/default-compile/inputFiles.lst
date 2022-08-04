@@ -1,6 +1,0 @@
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/SpringbootThymeleafCrudWebAppApplication.java
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/controller/EmployeeController.java
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/service/EmployeeServiceImpl.java
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/model/Employee.java
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/service/EmployeeService.java
-/home/melvin/springboot-crud-webapp/src/main/java/net/javaguides/springboot/repository/EmployeeRepository.java
