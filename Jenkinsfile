@@ -12,9 +12,7 @@ pipeline {
         }
         stage('test') {
             steps {
-                catchError(message: 'Test Stage fails? Pipeline continues...') {
-                    sh 'bash ./test-db.sh'
-                }
+                sh 'bash ./test-db.sh'
             }
         }
         stage('Docker Build and Push') {
@@ -29,7 +27,6 @@ pipeline {
             }
         }
     } 
-
     post {
         unstable {
             echo 'Pipeline is unstable...'
