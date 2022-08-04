@@ -78,7 +78,17 @@ Replace `melvincv/springbootcrudapp` in your Jenkinsfile
 - Configure > Pipeline > Pipeline script from SCM > Git > Paste git repo HTTPS clone URL
 
 ### Build with Parameters
-- Tick DOCKER_BUILD
+
+- Add Parameters to the Configure page
+    - String: MYSQL_DATABASE
+    - String: MYSQL_USER
+    - Password: MYSQL_PASSWORD
+
+![String Parameter](img/params.png)
+
+- Build with parameters
+    - Enter a image tag
+    - Tick DOCKER_BUILD if needed
 
 # References
 
