@@ -13,7 +13,7 @@ pipeline {
         stage('test') {
             steps {
                 catchError(message: 'Test Stage fails? Pipeline continues...') {
-                    sh './test-db.sh'
+                    sh 'bash ./test-db.sh'
                 }
             }
         }
