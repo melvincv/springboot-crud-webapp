@@ -11,8 +11,14 @@ pipeline {
             }
         }
         stage('test') {
+            agent {
+                docker {
+                    args '--name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE -e MYSQL_USER -e MYSQL_PASSWORD'
+                    image 'melvincv/mysql-maven:8.0-mvn3.8.6'
+                }
+            }
             steps {
-                catchError(message: 'Test Stage fails for now. No idea why. Pipeline continues...') {
+                catchError(message: 'Test Stage fails? Pipeline continues...') {
                     sh 'mvn test'
                 }
             }
@@ -29,6 +35,7 @@ pipeline {
             }
         }
     } 
+
     post {
         unstable {
             echo 'Pipeline is unstable...'
