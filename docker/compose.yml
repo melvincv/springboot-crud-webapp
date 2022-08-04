@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: melvincv/springbootcrudapp
+    image: melvincv/springbootcrudapp:$TAG
     restart: unless-stopped
     ports:
       - 8100:8080
