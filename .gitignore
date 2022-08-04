@@ -1,6 +1,7 @@
 terraform/
 target/
 /deploy*
+shell/
 
 # Compiled class file
 *.class
